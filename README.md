@@ -1,10 +1,10 @@
-# python-nodejs
+# typescript docker seed
 
 ## Features
 
-- Proof of concept to run a python script from nodejs app
-- pass input object to script
-- get an output object from the script
+- typescript
+- dockerfile & docker-compose
+- install script
 
 ## Installation
 
@@ -16,4 +16,9 @@ To run the app:
 
 ```bash
 npm start
+```
+
+```bash
+chmod 700 run.sh
+./run.sh
 ```
