@@ -1,29 +1,28 @@
-import { PythonShell } from 'python-shell';
 import { config } from './config';
+import express from 'express';
 
-const input = {
-    message: 'hello world',
-    number: 4
-}
+// Constants
+const PORT = +process.env.PORT | 3000;
+const PG_HOST = process.env.PG_HOST;
+const PG_PORT = process.env.PG_PORT;
+const PG_USER = process.env.PG_USER;
+const PG_PASS = process.env.PG_PASS;
 
-let options = {
-    mode: 'json' as 'json',
-    // pythonPath: '',
-    pythonOptions: ['-u'], // get print results in real-time
-    scriptPath: config.python.path,
-    args: [JSON.stringify(input)]
-};
+console.log(`PG_HOST=${PG_HOST}`);
+console.log(`PG_PORT=${PG_PORT}`);
+console.log(`PG_USER=${PG_USER}`);
+console.log(`PG_PASS=${PG_PASS}`);
 
-PythonShell.run(config.python.filename, options, function (err, results) {
-    if (err) {
-        console.log(`error = ${err}`);
-        throw err;
-    }
-    else {
-        // do something with the result        
-        console.log(results);
-    }
-})
+let counter = 0;
 
+// App
+const app = express();
+app.get('/', (req, res) => {
+    const out = `request number = ${++counter}`;
+    res.send(out);
+});
+
+app.listen(PORT);
+console.log(`Running on port ${PORT}`);
 
 

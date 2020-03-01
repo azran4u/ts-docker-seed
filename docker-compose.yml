@@ -1,0 +1,27 @@
+version: '3.5'
+services:
+  web:
+    depends_on: 
+      - postgres
+    build: .
+    ports:
+      - "8080:3000"
+    links: 
+      - postgres
+    environment:
+      PG_HOST: postgres
+      PG_PORT: ${POSTGRES_PORT}
+      PG_USER: ${POSTGRES_USER}
+      PG_PASS: ${POSTGRES_PASSWORD}
+  postgres:
+    restart: unless-stopped    
+    image: postgres
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      PGDATA: /data/postgres
+    volumes:
+       - ./postgres:/data/postgres
+    ports:
+      - ${POSTGRES_PORT}:${POSTGRES_PORT}
+    
